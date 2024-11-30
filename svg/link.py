@@ -1,15 +1,18 @@
 from typing import Optional, List
 from .shapes import Shape
+from svg.canvas import Canvas
 
 
 class Link:
-    def __init__(self, text_arg: str, href: Optional[str]):
+    def __init__(self, text_arg: str, href: Optional[str], canvas: Canvas):
         """
         Link class for HTML <a> tags
 
         :param text_arg:
         :param href:
         """
+
+        canvas.add_shape(self)
         self.text_arg = text_arg
         self.href = href
         self.shapes: List[Shape] = []
@@ -23,4 +26,3 @@ class Link:
 
     def add_shape(self, shape) -> None:
         self.shapes.append(shape)
-
