@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "svg"
+version = "0.1.1"
+description = "Create Dynamic SVGs using Python3"
+keywords = ["python", "svg"]
+authors = ["KrishnaKanth1729 <rkrishnakanth1729@gmail.com>"]
+readme = "README.md"
+classifiers=[
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Operating System :: Unix",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.urls]
+Repository = "https://github.com/KrishnaKanth1729/PySVG"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
