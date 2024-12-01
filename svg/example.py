@@ -1,7 +1,7 @@
-from shapes import Rectangle, Circle
-from link import Link
 from canvas import Canvas
+from link import Link
 from server import svg_server
+from shapes import Circle, Rectangle
 
 canvas = Canvas(500, 500)
 link = Link("https://google.com", canvas)

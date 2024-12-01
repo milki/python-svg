@@ -1,6 +1,7 @@
-from .link import Link
+from typing import List, Optional, Union
+
 from .canvas import Canvas
-from typing import Union, List, Optional
+from .link import Link
 from .style import Style
 
 
@@ -14,11 +15,17 @@ class Shape:
 
 
 class Rectangle(Shape):
-    def __init__(self, width: int, height: int, parent:
-                 Union[Canvas, Link], x: int = 0, y: int = 0,
-                 style: Optional[Style] = Style({"fill": "black"}),
-                 rx: Optional[int] = 0, ry: Optional[int] = 0):
-
+    def __init__(
+        self,
+        width: int,
+        height: int,
+        parent: Union[Canvas, Link],
+        x: int = 0,
+        y: int = 0,
+        style: Optional[Style] = Style({"fill": "black"}),
+        rx: Optional[int] = 0,
+        ry: Optional[int] = 0,
+    ):
         """
         Rectangle class
 
@@ -48,13 +55,22 @@ class Rectangle(Shape):
 
 
 class Circle(Shape):
-    def __init__(self, cx: int, cy: int, r: int, parent: Union[Canvas, Link],
-                 stroke: str = "", stroke_width: int = None, fill: str = 'black',
-                 style: Style = Style({})):
+    def __init__(
+        self,
+        cx: int,
+        cy: int,
+        r: int,
+        parent: Union[Canvas, Link],
+        stroke: str = "",
+        stroke_width: int = None,
+        fill: str = "black",
+        style: Style = Style({}),
+    ):
 
         if not isinstance(parent, Canvas) and not isinstance(parent, Link):
-            raise ValueError(f"Expected a class of Canvas or Link found type "
-                             f"{type(parent)}")
+            raise ValueError(
+                f"Expected a class of Canvas or Link found type " f"{type(parent)}"
+            )
 
         super().__init__(parent)
         self.parent.add_shape(self)
@@ -68,15 +84,18 @@ class Circle(Shape):
         self.fill = fill
 
     def svg_content(self):
-        return f'<circle cx="{self.cx}" cy="{self.cy}" r="{self.r}" ' \
-               f'stroke="{self.stroke}" stroke-width="{self.stroke_width}" ' \
-               f'fill="{self.fill}" style={self.style.svg()} />'
+        return (
+            f'<circle cx="{self.cx}" cy="{self.cy}" r="{self.r}" '
+            f'stroke="{self.stroke}" stroke-width="{self.stroke_width}" '
+            f'fill="{self.fill}" style={self.style.svg()} />'
+        )
 
 
 class Point(Shape):
     """
-        Class to represent
+    Class to represent
     """
+
     def __init__(self, x: int, y: int, canvas: Canvas):
         super().__init__(canvas)
 
@@ -87,11 +106,15 @@ class Point(Shape):
 
     def check_outline(self):
         if self.x > self.canvas.width:
-            raise Warning(f"X {self.x} value of point {self} lies outside canvas "
-                          f"of width {self.canvas.width}")
+            raise Warning(
+                f"X {self.x} value of point {self} lies outside canvas "
+                f"of width {self.canvas.width}"
+            )
         elif self.y > self.canvas.height:
-            raise Warning(f"x {self.x} value of point {self} lies outside canvas "
-                          f"of width {self.canvas.width}")
+            raise Warning(
+                f"x {self.x} value of point {self} lies outside canvas "
+                f"of width {self.canvas.width}"
+            )
 
     def __str__(self):
         return f"{self.x},{self.y}"
@@ -99,12 +122,20 @@ class Point(Shape):
 
 class Polygon(Shape):
     """
-        Class for the polygon class
-        <polygon points="">
+    Class for the polygon class
+    <polygon points="">
     """
-    def __init__(self, points: List[Union[Point, tuple]], parent: Union[Canvas, Link], style: Style = Style({'fill': 'black'})):
+
+    def __init__(
+        self,
+        points: List[Union[Point, tuple]],
+        parent: Union[Canvas, Link],
+        style: Style = Style({"fill": "black"}),
+    ):
         if not isinstance(parent, Canvas) and not isinstance(parent, Link):
-            raise ValueError(f"Expected a class of Canvas or Link found type {type(parent)}")
+            raise ValueError(
+                f"Expected a class of Canvas or Link found type {type(parent)}"
+            )
 
         super().__init__(parent)
         parent.add_shape(self)
@@ -117,14 +148,23 @@ class Polygon(Shape):
 
 class Ellipse(Shape):
     """
-        A Class for the SVG Ellipse
+    A Class for the SVG Ellipse
     """
-    def __init__(self, cx: int, cy: int, rx: int, ry: int,
-                 parent: Union[Canvas, Link], style: Style = Style({'fill': 'black'})):
+
+    def __init__(
+        self,
+        cx: int,
+        cy: int,
+        rx: int,
+        ry: int,
+        parent: Union[Canvas, Link],
+        style: Style = Style({"fill": "black"}),
+    ):
 
         if not isinstance(parent, Canvas) and not isinstance(parent, Link):
-            raise ValueError(f"Expected a class of Canvas or Link found type "
-                             f"{type(parent)}")
+            raise ValueError(
+                f"Expected a class of Canvas or Link found type " f"{type(parent)}"
+            )
 
         super().__init__(parent)
         parent.add_shape(self)
@@ -137,12 +177,22 @@ class Ellipse(Shape):
         self.style = style
 
     def svg_content(self) -> str:
-        return f'<ellipse cx="{self.cx}" cy="{self.cy}" rx="{self.rx}" ' \
-               f'ry="{self.ry}" style="{self.style.svg()}" />'
+        return (
+            f'<ellipse cx="{self.cx}" cy="{self.cy}" rx="{self.rx}" '
+            f'ry="{self.ry}" style="{self.style.svg()}" />'
+        )
 
 
 class Line(Shape):
-    def __init__(self, x1: int, y1: int, x2: int, y2: int, parent: Union[Canvas, Link], style: Style = Style({"stroke": "black"})):
+    def __init__(
+        self,
+        x1: int,
+        y1: int,
+        x2: int,
+        y2: int,
+        parent: Union[Canvas, Link],
+        style: Style = Style({"stroke": "black"}),
+    ):
         if not isinstance(parent, Canvas) or isinstance(parent, Link):
             raise ValueError(
                 f"Expected a class of Canvas or Link found type {type(parent)}"
@@ -163,9 +213,19 @@ class Line(Shape):
 
 
 class Text(Shape):
-    def __init__(self, x: int, y: int, text: str, parent: Union[Canvas, Link], fill: str = "black", transform: Optional[str] = ""):
+    def __init__(
+        self,
+        x: int,
+        y: int,
+        text: str,
+        parent: Union[Canvas, Link],
+        fill: str = "black",
+        transform: Optional[str] = "",
+    ):
         if not isinstance(parent, Canvas) and not isinstance(parent, Link):
-            raise ValueError(f"Expected a class of Canvas or Link found type {type(parent)}")
+            raise ValueError(
+                f"Expected a class of Canvas or Link found type {type(parent)}"
+            )
 
         super().__init__(parent)
         parent.add_shape(self)

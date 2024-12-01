@@ -1,6 +1,7 @@
-from .canvas import Canvas
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import webbrowser
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+from .canvas import Canvas
 
 
 def svg_server(canvas: Canvas, port: int = 8000):
@@ -9,7 +10,9 @@ def svg_server(canvas: Canvas, port: int = 8000):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(bytes("<html><head><title>Python SVG</title></head>", "utf-8"))
+            self.wfile.write(
+                bytes("<html><head><title>Python SVG</title></head>", "utf-8")
+            )
             self.wfile.write(bytes("<body>", "utf-8"))
             self.wfile.write(bytes(canvas.svg_content(), "utf-8"))
             self.wfile.write(bytes("</body></html>", "utf-8"))
@@ -26,4 +29,3 @@ def svg_server(canvas: Canvas, port: int = 8000):
 
     webServer.server_close()
     print("Server stopped.")
-

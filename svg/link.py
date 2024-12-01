@@ -1,4 +1,5 @@
-from typing import Optional, List
+from typing import List, Optional
+
 from svg.canvas import Canvas
 
 
@@ -18,7 +19,7 @@ class Link:
         content = f'<a href="{self.href}">'
         for shape in self.shapes:
             content += shape.svg_content()
-        content += '</a>'
+        content += "</a>"
         return content
 
     def add_shape(self, shape) -> None:

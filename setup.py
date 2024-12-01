@@ -1,5 +1,6 @@
 import pathlib
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -18,7 +19,7 @@ setup(
     author="KrishnaKanth1729",
     author_email="rkrishnakanth1729@gmail.com",
     packages=find_packages(),
-    keywords=['python', 'svg'],
+    keywords=["python", "svg"],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
@@ -26,5 +27,5 @@ setup(
         "Operating System :: Unix",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
-    ]
+    ],
 )

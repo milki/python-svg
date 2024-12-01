@@ -4,7 +4,7 @@ class Style:
 
     def filter(self):
         # TODO: to add more known attributes
-        known_attributes = ['fill', 'stroke', 'stroke-width', 'fill-rule']
+        known_attributes = ["fill", "stroke", "stroke-width", "fill-rule"]
         for key in self.style.keys():
             if key not in known_attributes:
                 raise Warning("Attribute {key} is not a known style property")
